@@ -6,7 +6,7 @@ const url = "https://api.steamcmd.net/v1/info/2519830"
 const main = async () => {
     // read current data
     try {
-        const data = JSON.parse(await fs.readFile("data.json"))
+        const data = JSON.parse(await fs.readFile("./json/data.json"))
         const beforeUpdate = data.data["2519830"].depots.branches.public.timeupdated
 
         // fetch new data
@@ -32,7 +32,7 @@ const main = async () => {
             }
 
             // save new data
-            await fs.writeFile("data.json", JSON.stringify(newData))
+            await fs.writeFile("./json/data.json", JSON.stringify(newData))
 
         } else {
             console.log("No update detected")
@@ -40,7 +40,7 @@ const main = async () => {
     } catch (error) {
         const response = await fetch(url)
         const data = await response.json()
-        await fs.writeFile("data.json", JSON.stringify(data))
+        await fs.writeFile("./json/data.json", JSON.stringify(data))
         console.log("First run, data saved")
     }
 }
